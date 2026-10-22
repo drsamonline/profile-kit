@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — profile-kit</title>
+<meta name="description" content="That page does not exist on the profile-kit site.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#f5f6fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0f16" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://drsamonline.github.io/profile-kit/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Crect x='7' y='9' width='18' height='4' rx='2' fill='%23ffffff'/%3E%3Crect x='7' y='16' width='11' height='3' rx='1.5' fill='%23c7d2fe'/%3E%3Crect x='7' y='22' width='7' height='3' rx='1.5' fill='%23c7d2fe'/%3E%3C/svg%3E">
+<script>
+(function(){var t=null;try{t=localStorage.getItem("theme");}catch(e){}
+if(t!=="light"&&t!=="dark"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)?"dark":"light";}
+var d=document.documentElement;d.setAttribute("data-theme",t);d.style.colorScheme=t;})();
+</script>
+<style>
+  :root{--bg:#f5f6fb;--surface:#ffffff;--ink:#191c2b;--ink-2:#4a4f66;--ink-3:#6b7089;
+    --line:#e1e4f0;--line-2:#d3d7e8;--accent:#4f46e5;--accent-2:#4338ca;--on-accent:#ffffff;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+  [data-theme="dark"]{--bg:#0e0f16;--surface:#161824;--ink:#e9eaf2;--ink-2:#a9aec6;--ink-3:#7c8199;
+    --line:#272a3a;--line-2:#333750;--accent:#a5b4fc;--accent-2:#c7d2fe;--on-accent:#12131c;}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--ink);
+    font:16px/1.7 var(--sans);-webkit-font-smoothing:antialiased;padding:24px}
+  .box{max-width:600px;text-align:center}
+  .ic{width:64px;height:64px;margin:0 auto 22px;display:grid;place-items:center;border-radius:16px;
+    background:var(--accent);color:var(--on-accent)}
+  .ic svg{width:32px;height:32px}
+  .code{font:700 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  h1{font-size:clamp(26px,5vw,38px);letter-spacing:-.02em;margin:14px 0 10px;font-weight:800}
+  p{color:var(--ink-2);margin:0 0 26px}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  a.btn{display:inline-flex;align-items:center;gap:9px;border-radius:10px;padding:12px 18px;font-weight:600;
+    border:1px solid var(--line-2);background:var(--surface);color:var(--ink);text-decoration:none}
+  a.btn:hover{border-color:var(--accent);color:var(--accent)}
+  a.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+  a.btn.primary:hover{background:var(--accent-2);border-color:var(--accent-2);color:var(--on-accent)}
+  a.btn svg{width:17px;height:17px}
+  @media (prefers-reduced-motion:no-preference){a.btn{transition:background-color .14s,border-color .14s,color .14s}}
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5"/><circle cx="12" cy="16.5" r=".6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="9"/></svg></div>
+    <div class="code">Error 404</div>
+    <h1>That page isn't here</h1>
+    <p>The page you asked for doesn't exist on this site. Head back to the kit's landing page, or read the README and source on GitHub.</p>
+    <div class="cta">
+      <a class="btn primary" href="./"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 12h13m0 0-5-5m5 5-5 5"/></svg> Back to profile-kit</a>
+      <a class="btn" href="https://github.com/drsamonline/profile-kit" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+  </div>
+</body>
+</html>
