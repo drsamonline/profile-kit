@@ -1,0 +1,172 @@
+name: Metrics
+
+# Renders a metrics card TWICE -- once light, once dark -- and commits both
+# SVGs to assets/. The profile README then serves the right one per GitHub
+# theme with <picture> + media="(prefers-color-scheme: dark)".
+#
+# ---------------------------------------------------------------------------
+# How to use this file
+# ---------------------------------------------------------------------------
+# 1. Copy it into your profile repo as .github/workflows/metrics.yml
+# 2. Replace YOUR_GITHUB_USERNAME below with your login.
+# 3. Make sure assets/ exists and that your README embeds the two cards:
+#
+#      <picture>
+#        <source media="(prefers-color-scheme: dark)" srcset="assets/metrics-dark.svg">
+#        <source media="(prefers-color-scheme: light)" srcset="assets/metrics-light.svg">
+#        <img src="assets/metrics-light.svg" alt="GitHub metrics" width="480">
+#      </picture>
+#
+# 4. Run it: Actions -> "Metrics" -> Run workflow.
+#
+# ---------------------------------------------------------------------------
+# Why two renders and not one theme option
+# ---------------------------------------------------------------------------
+# lowlighter/metrics has NO built-in light/dark switch. The option `config_theme`
+# that circulates widely online is NOT a real metrics option -- it silently does
+# nothing. The only way to ship a matched light/dark pair is to render the card
+# twice and pin each render's palette through `extras_css`, which is injected
+# into the SVG's own <style> block. That is what the two steps below do.
+#
+# ---------------------------------------------------------------------------
+# The card is deliberately minimal
+# ---------------------------------------------------------------------------
+# It carries only sections that render real, non-zero data:
+#   * base.header    -> name, "Joined GitHub", followers, repositories
+#   * base.activity  -> commits, PRs reviewed/opened, issues
+# plus ONE strong visual: a full-year contribution calendar (plugin_calendar).
+#
+# Zero-only sections are omitted on purpose. base.community prints
+# "Member of 0 organizations", "Watching 0 repositories" and
+# "Sponsoring 0 repositories"; a card full of zeroes reads as broken.
+#
+# ---------------------------------------------------------------------------
+# Known limitation: the languages panel is EMPTY under GITHUB_TOKEN
+# ---------------------------------------------------------------------------
+# See the long note at the foot of this file. Short version: the repository-
+# scoped ${{ secrets.GITHUB_TOKEN }} is not allowed to read the `stargazers`
+# field that metrics' base query requests, so plugin_languages renders an empty
+# "0 Languages" panel -- and the action still reports SUCCESS, so the card looks
+# broken with no error anywhere. The fix is a classic PAT saved as METRICS_TOKEN.
+
+on:
+  schedule:
+    # Daily, 04:00 UTC. Offset from other committers so two workflows do not
+    # race each other on main.
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: metrics
+  cancel-in-progress: true
+
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Light card -> assets/metrics-light.svg
+        uses: lowlighter/metrics@latest
+        with:
+          # Token used to read GitHub data. See the note at the foot of this file.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          user: YOUR_GITHUB_USERNAME
+          filename: assets/metrics-light.svg
+          template: classic
+          base: header, activity
+          config_timezone: Asia/Kolkata
+          config_display: regular
+          config_animations: no
+          config_order: base.header, base.activity, calendar
+          plugin_calendar: yes
+          plugin_calendar_limit: 1
+          # ------------------------------------------------------------------
+          # Languages breakdown is DISABLED under GITHUB_TOKEN -- see the note
+          # at the foot of this file. To re-enable it, switch the token to a
+          # classic PAT (secret METRICS_TOKEN), then uncomment this block and
+          # add "languages" back to config_order above.
+          # ------------------------------------------------------------------
+          # plugin_languages: yes
+          # plugin_languages_limit: 6
+          # plugin_languages_sections: most-used
+          # plugin_languages_details: percentage
+          # plugin_languages_other: yes
+          # plugin_languages_colors: "0:#3E6C9E, 1:#5B84AE, 2:#7E9CBE, 3:#9FB3C8, 4:#7E93A6, 5:#B3C0CB"
+          extras_css: |
+            svg { color: #4A5262; }
+            h1, h2 { color: #171A21; }
+            footer { color: #6B7480; }
+            .field svg { fill: #7A8494; }
+          output_action: commit
+          committer_message: "chore(metrics): refresh light card"
+
+      - name: Dark card -> assets/metrics-dark.svg
+        uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          user: YOUR_GITHUB_USERNAME
+          filename: assets/metrics-dark.svg
+          template: classic
+          base: header, activity
+          config_timezone: Asia/Kolkata
+          config_display: regular
+          config_animations: no
+          config_order: base.header, base.activity, calendar
+          plugin_calendar: yes
+          plugin_calendar_limit: 1
+          # ------------------------------------------------------------------
+          # Languages breakdown is DISABLED under GITHUB_TOKEN -- see the note
+          # at the foot of this file. To re-enable it, switch the token to a
+          # classic PAT (secret METRICS_TOKEN), then uncomment this block and
+          # add "languages" back to config_order above.
+          # ------------------------------------------------------------------
+          # plugin_languages: yes
+          # plugin_languages_limit: 6
+          # plugin_languages_sections: most-used
+          # plugin_languages_details: percentage
+          # plugin_languages_other: yes
+          # plugin_languages_colors: "0:#86A9D6, 1:#6E93C4, 2:#5C7FB0, 3:#4E6E9B, 4:#7F8FA6, 5:#9AA6B6"
+          extras_css: |
+            svg { color: #AEB6C2; }
+            h1, h2 { color: #E9ECF2; }
+            footer { color: #8A93A1; }
+            .field svg { fill: #8A93A1; }
+          output_action: commit
+          committer_message: "chore(metrics): refresh dark card"
+
+# ---------------------------------------------------------------------------
+# Why the languages panel is empty under GITHUB_TOKEN, and how to fix it
+# ---------------------------------------------------------------------------
+# lowlighter/metrics' base repositories query requests `stargazers { totalCount }`.
+# The repository-scoped `${{ secrets.GITHUB_TOKEN }}` is NOT permitted to read
+# that field -- the GraphQL call comes back:
+#
+#     FORBIDDEN: Resource not accessible by integration
+#
+# That leaves the repositories data unusable, so the languages plugin renders
+# "0 Languages" with a bare, unstyled "Most used languages" link and no chart.
+# The action itself still reports SUCCESS -- there is no failing step and no
+# red X, so the card simply looks broken for no visible reason. plugin_languages
+# is therefore switched off above and the card ships without it -- correct and
+# complete, if smaller -- rather than shipping broken.
+#
+# A classic personal access token IS allowed to read `stargazers`, so to restore
+# the languages breakdown, do exactly this:
+#   1. Create a classic PAT: github.com -> Settings -> Developer settings ->
+#      Personal access tokens -> Tokens (classic) -> Generate new token
+#      (classic). NO scopes are required (a scopeless classic token is enough
+#      for public data); pick any expiry you like.
+#   2. In your profile repo: Settings -> Secrets and variables -> Actions ->
+#      New repository secret. Name it exactly METRICS_TOKEN and paste the token.
+#   3. Switch the `token:` input in BOTH steps above to:
+#         token: ${{ secrets.METRICS_TOKEN }}
+#   4. Uncomment the `plugin_languages*` lines in BOTH steps and add `languages`
+#      back to `config_order` (i.e. "base.header, base.activity, languages,
+#      calendar").
+#   5. Actions -> "Metrics" -> Run workflow (or wait for the daily schedule).
+#
+# And remember: `config_theme` is not a real metrics option -- it is copied
+# around the web often, but it does nothing. Light/dark is done with extras_css
+# and two renders, as above.
