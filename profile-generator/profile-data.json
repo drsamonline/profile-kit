@@ -1,0 +1,59 @@
+{
+  "owner": "YOUR_GITHUB_USERNAME",
+  "metaRepos": [
+    "YOUR_GITHUB_USERNAME",
+    "YOUR_GITHUB_USERNAME.github.io"
+  ],
+  "markers": {
+    "badgesStart": "<!-- BADGES:START -->",
+    "badgesEnd": "<!-- BADGES:END -->",
+    "projectsStart": "<!-- PROJECTS:START -->",
+    "projectsEnd": "<!-- PROJECTS:END -->"
+  },
+  "categories": [
+    {
+      "key": "desktop",
+      "label": "Desktop & System Tools"
+    },
+    {
+      "key": "games",
+      "label": "Games & Engines"
+    },
+    {
+      "key": "health",
+      "label": "Health & Medicine"
+    },
+    {
+      "key": "mind",
+      "label": "Mind & Wellbeing"
+    },
+    {
+      "key": "audio",
+      "label": "Audio & Media"
+    },
+    {
+      "key": "business",
+      "label": "Business & Productivity"
+    },
+    {
+      "key": "meta",
+      "label": "Meta & Infrastructure"
+    },
+    {
+      "key": "other",
+      "label": "Other / New"
+    }
+  ],
+  "repos": {
+    "example-project": {
+      "category": "desktop",
+      "description": "One-line description of the project, shown in the README list.",
+      "featured": true
+    },
+    "another-project": {
+      "category": "games",
+      "description": "One-line description of the project.",
+      "featured": false
+    }
+  }
+}
