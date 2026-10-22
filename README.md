@@ -1,6 +1,15 @@
 # profile-kit
 
-A small, reusable kit for a **theme-aware, self-updating GitHub profile**.
+**A small, reusable kit for a theme-aware, self-updating GitHub profile.**
+
+[![Landing page](https://img.shields.io/badge/landing%20page-open-2e7d32?style=flat-square)](https://drsamonline.github.io/profile-kit/)
+[![All projects](https://img.shields.io/badge/All%20projects-hub-2e7d32?style=flat-square)](https://drsamonline.github.io/)
+[![Offline-first](https://img.shields.io/badge/offline--first-yes-2e7d32?style=flat-square)](https://github.com/drsamonline/profile-kit)
+[![Built with Python](https://img.shields.io/badge/built%20with-Python-3572A5?style=flat-square)](https://github.com/drsamonline/profile-kit)
+[![Type: reusable kit](https://img.shields.io/badge/type-reusable%20kit-586069?style=flat-square)](https://drsamonline.github.io/profile-kit/)
+
+**Landing page:** <https://drsamonline.github.io/profile-kit/> &nbsp;·&nbsp; **All projects:** <https://drsamonline.github.io/>
+
 
 Lift it into your own `username/username` profile repo — by hand, or by handing
 this repository to an AI agent — and you get a profile page that:
