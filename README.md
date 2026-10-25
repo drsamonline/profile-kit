@@ -7,7 +7,7 @@
 [![Offline-first](https://img.shields.io/badge/offline--first-yes-2e7d32?style=flat-square)](https://github.com/drsamonline/profile-kit)
 [![Built with Python](https://img.shields.io/badge/built%20with-Python-3572A5?style=flat-square)](https://github.com/drsamonline/profile-kit)
 [![Type: reusable kit](https://img.shields.io/badge/type-reusable%20kit-586069?style=flat-square)](https://drsamonline.github.io/profile-kit/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-2e7d32?style=flat-square)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-PolyForm Noncommercial-2e7d32?style=flat-square)](LICENSE)
 
 **Landing page:** <https://drsamonline.github.io/profile-kit/> &nbsp;·&nbsp; **All projects:** <https://drsamonline.github.io/>
 
