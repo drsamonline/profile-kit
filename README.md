@@ -1,5 +1,7 @@
 # profile-kit
 
+
+![Screenshot](docs/shot.png)
 **A small, reusable kit for a theme-aware, self-updating GitHub profile.**
 
 [![Landing page](https://img.shields.io/badge/landing%20page-open-2e7d32?style=flat-square)](https://drsamonline.github.io/profile-kit/)
